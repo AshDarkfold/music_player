@@ -21,7 +21,7 @@ function App() {
     headingRef.current.classList.add('selector-active');
     headingRef.current.innerHTML = e.target.files[0].name;
     setTimeout(() => {
-      headingRef.current.style.transform = 'translate(150%, -50%)';
+      headingRef.current.style.transform = 'translate(200%, -50%) scale(1.1)';
       setTimeout(() => {
         setShowPlayer(true);
       }, 201);

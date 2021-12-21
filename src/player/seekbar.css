@@ -1,0 +1,76 @@
+.rc-slider {
+  background: #dedde3;
+  box-shadow: -3px -3px 5px #ffffff, 3px 3px 5px rgba(0, 0, 0, 0.05),
+    inset 3px 3px 5px rgba(0, 0, 0, 0.05), inset -3px -3px 5px #ffffff;
+  border-radius: 37px;
+  padding: 4px;
+}
+
+.rc-slider-rail {
+  background-color: transparent;
+}
+
+.rc-slider-track {
+  background: linear-gradient(327.56deg, #5d24d6 19.23%, #7e74ed 81.76%);
+  box-shadow: 0px 2px 3px rgba(43, 72, 180, 0.4),
+    inset 1px 1px 3px rgba(255, 255, 255, 0.4);
+  border-radius: 31px;
+  height: 6px;
+  left: 4px !important;
+}
+
+.rc-slider-handle {
+  width: 30px;
+  height: 30px;
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15),
+    inset 10px 10px 10px rgba(0, 0, 0, 0.05), inset -10px -10px 20px #ffffff;
+  transform: translateX(-50%) translateY(-8px) !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-out;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+}
+
+.rc-slider-handle > .handle-inner {
+  width: 18px;
+  height: 18px;
+  border-radius: 100%;
+  background: linear-gradient(327.56deg, #5d24d6 19.23%, #7e74ed 81.76%);
+  box-shadow: 0px 3px 5px rgba(98, 75, 242, 0.63),
+    inset 10px 10px 15px rgba(255, 255, 255, 0.2);
+  transition: opacity 0.2s ease-out;
+  -webkit-transition: opacity 0.2s ease-out;
+  -moz-transition: opacity 0.2s ease-out;
+  -o-transition: opacity 0.2s ease-out;
+  -ms-transition: opacity 0.2s ease-out;
+}
+.rc-slider-handle:hover {
+  border: none;
+}
+
+.rc-slider-handle:hover > .handle-inner {
+  opacity: 0.8;
+}
+
+.rc-slider-handle:active {
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15),
+    inset 10px 10px 10px rgba(0, 0, 0, 0.05), inset -10px -10px 20px #ffffff;
+  border: none;
+}
+
+.rc-slider-handle:focus {
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15),
+    inset 10px 10px 10px rgba(0, 0, 0, 0.05), inset -10px -10px 20px #ffffff;
+  border-color: rgba(93, 36, 214, 0.4);
+}
+
+.rc-slider-handle:active > .handle-inner {
+  transform: scale(0.95);
+}
