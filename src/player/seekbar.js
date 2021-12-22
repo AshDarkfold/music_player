@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import 'rc-slider/assets/index.css';
 import './seekbar.css';
 import Slider from 'rc-slider';
@@ -6,7 +5,7 @@ import Slider from 'rc-slider';
 const { Handle } = Slider;
 
 const handle = (props) => {
-  const { value, dragging, index, ...restProps } = props;
+  const { value, ...restProps } = props;
   return (
     <Handle value={value} {...restProps}>
       <div className="handle-inner" />
@@ -14,10 +13,17 @@ const handle = (props) => {
   );
 };
 
-export default function SeekBar({ file }) {
+export default function SeekBar({ duration, value, changeCurrentTime }) {
   return (
     <div>
-      <Slider handle={handle} />
+      <Slider
+        onChange={(time) => {
+          changeCurrentTime(time);
+        }}
+        handle={handle}
+        value={value}
+        max={duration}
+      />
     </div>
   );
 }

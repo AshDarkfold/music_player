@@ -7,7 +7,8 @@
   height: 100vh;
   background-color: #e2ddff;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .app > .audio-selector {
@@ -79,6 +80,7 @@
 .art-container {
   width: 250px;
   height: 250px;
+  min-height: 250px;
   object-fit: contain;
   display: flex;
   justify-content: center;
@@ -103,22 +105,32 @@
 
 .art-container > div > .music-art {
   width: 100%;
-  aspect-ratio: 1;
+  height: 100%;
   border-radius: 30px;
   box-shadow: inset 10px 10px 15px rgba(255, 255, 255, 0.2);
   filter: drop-shadow(2px 2px 5px rgba(37, 5, 57, 0.51));
-  transition: all 0.2s ease-out;
-  -webkit-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
-  -ms-transition: all 0.2s ease-out;
 }
 
-.music-art:hover {
-  transform: scale(1.1);
+.music-art-animate {
+  animation: Vibe;
+  animation-timing-function: ease-in-out;
+  animation-duration: 600ms;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
 }
 
-.details-contianer {
+@keyframes Vibe {
+  25%,
+  75% {
+    transform: scale(1.01);
+  }
+  50%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+.details-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -352,15 +364,14 @@
   transform: scale(0.95);
 }
 
+.vertically-opp {
+  transform: scaleX(-1);
+}
+
 .seekbar-container {
   width: 100%;
   margin-bottom: 20px;
 }
-
-/* .seekbar-container > input {
-  width: 100%;
-  margin-bottom: 10px;
-} */
 
 .seekbar-container > div {
   width: 100%;
@@ -385,5 +396,20 @@
   }
   .controller-inner {
     padding-left: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .player-details {
+    flex-direction: column;
+    height: auto;
+  }
+  .details-container {
+    width: 250px;
+    padding: 15px;
+  }
+
+  .neumorph-big.bigger {
+    margin: 0px 10px;
   }
 }

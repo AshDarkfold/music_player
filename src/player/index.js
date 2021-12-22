@@ -1,46 +1,55 @@
 import { useEffect, useRef, useState } from 'react';
 import 'animate.css';
 import albumart from '../images/albumart.jpg';
-import jDataView from 'jdataview';
 import heart from '../images/heart.svg';
 import playlist from '../images/playlist.svg';
 import share from '../images/share.svg';
 import AudioController from './controller';
+import { readFileMediaTags } from '../utils';
 
-export default function Player({ file }) {
-  const playerContainerRef = useRef(null);
+export default function Player({ file, audioBase64 }) {
+  const playerContainerRef = useRef();
   const [songData, setSongData] = useState({});
+  const [audio] = useState(new Audio(audioBase64));
+  const [playing, setPlaying] = useState(true);
+  const [currentTime, setCurrentTime] = useState(0);
 
-  const getMediaTags = () => {
-    var reader = new FileReader();
-
-    reader.onload = (e) => {
-      var dv = new jDataView(e.target.result);
-
-      // "TAG" starts at byte -128 from EOF.
-      // See http://en.wikipedia.org/wiki/ID3
-      if (dv.getString(3, dv.byteLength - 128) == 'TAG') {
-        var title = dv.getString(30, dv.tell());
-        var artist = dv.getString(30, dv.tell());
-        var album = dv.getString(30, dv.tell());
-        var year = dv.getString(4, dv.tell());
-
-        setSongData({ title, artist, album, year });
-      } else {
-        // no ID3v1 data found.
-        console.log('not found');
-      }
-    };
-
-    reader.readAsArrayBuffer(file);
+  const getMediaTags = async () => {
+    const mediaTags = await readFileMediaTags(file);
+    setSongData(mediaTags);
   };
+
+  const toggleAudio = () => setPlaying(!playing);
+
+  const changeCurrentTime = (timeInSeconds) => {
+    audio.currentTime = timeInSeconds;
+  };
+
+  useEffect(() => {
+    audio && playing ? audio.play() : audio.pause();
+  }, [playing, audio]);
 
   useEffect(() => {
     void playerContainerRef.current.offsetWidth;
     playerContainerRef.current.classList.add('animate__fadeIn');
-    console.log(file);
     getMediaTags();
+
+    //eslint-disable-next-line
   }, [file]);
+
+  useEffect(() => {
+    audio.addEventListener('ended', () => {
+      setPlaying(false);
+    });
+    audio.addEventListener('timeupdate', (e) => {
+      setCurrentTime(audio.currentTime);
+    });
+    return () => {
+      audio.removeEventListener('ended', () => {});
+      audio.removeEventListener('timeupdate', () => {});
+    };
+    //eslint-disable-next-line
+  }, []);
 
   return (
     <div
@@ -50,14 +59,18 @@ export default function Player({ file }) {
       <section className="player-details">
         <div className="art-container">
           <div>
-            <img className="music-art" src={albumart} alt="Purple Haze" />
+            <img
+              className={`music-art ${playing && 'music-art-animate'}`}
+              src={albumart}
+              alt="Purple Haze"
+            />
           </div>
         </div>
-        <div className="details-contianer">
+        <div className="details-container">
           <span className="descriptive">Now Playing</span>
 
           <div>
-            <h3 className="song-title">
+            <h3 className="song-title" title={file.name}>
               {songData.title ? songData.title : file.name}
             </h3>
             <p className="song-artist">
@@ -81,7 +94,13 @@ export default function Player({ file }) {
           </div>
         </div>
       </section>
-      <AudioController file={file} />
+      <AudioController
+        duration={audio.duration}
+        changeCurrentTime={changeCurrentTime}
+        toggleAudio={toggleAudio}
+        currentTime={currentTime}
+        playing={playing}
+      />
     </div>
   );
 }

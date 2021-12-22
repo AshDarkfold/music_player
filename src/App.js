@@ -1,11 +1,12 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css';
 import Player from './player';
+import { readFileAsBase64 } from './utils';
 
 function App() {
   const [file, setFile] = useState(null);
   const [showPlayer, setShowPlayer] = useState(false);
-
+  const [audioString, setAudioString] = useState('');
   const headingRef = useRef(null);
 
   const handleDragEnter = () => {
@@ -28,6 +29,17 @@ function App() {
     }, 400);
   };
 
+  const handleAudioSet = async () => {
+    const audio = await readFileAsBase64(file);
+    setAudioString(audio);
+  };
+
+  useEffect(() => {
+    if (!file) return;
+    handleAudioSet();
+    //eslint-disable-next-line
+  }, [file]);
+
   return (
     <div className="app">
       {!showPlayer ? (
@@ -48,7 +60,7 @@ function App() {
           />
         </>
       ) : (
-        <Player file={file} />
+        audioString && <Player file={file} audioBase64={audioString} />
       )}
     </div>
   );

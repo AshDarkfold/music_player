@@ -5345,13 +5345,6 @@ jsesc@~0.5.0:
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-0.5.0.tgz#e7dee66e35d6fc16f710fe91d5cf69f70f08911d"
   integrity sha1-597mbjXW/Bb3EP6R1c9p9w8IkR0=
 
-jsmediatags@^3.9.7:
-  version "3.9.7"
-  resolved "https://registry.yarnpkg.com/jsmediatags/-/jsmediatags-3.9.7.tgz#808c6713b5ccb9712a4dc4b2149a0cb253c641a2"
-  integrity sha512-xCAO8C3li3t5hYkXqn8iv8zQQUB4T1QqRN2aSONHMls21ICdEvXi4xtb6W70/fAFYSDwMHd32hIqvo4YuXoNcQ==
-  dependencies:
-    xhr2 "^0.1.4"
-
 json-parse-better-errors@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/json-parse-better-errors/-/json-parse-better-errors-1.0.2.tgz#bb867cfb3450e69107c131d1c514bab3dc8bcaa9"
@@ -8660,11 +8653,6 @@ ws@^8.1.0:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/ws/-/ws-8.3.0.tgz#7185e252c8973a60d57170175ff55fdbd116070d"
   integrity sha512-Gs5EZtpqZzLvmIM59w4igITU57lrtYVFneaa434VROv4thzJyV6UjIL3D42lslWlI+D4KzLYnxSwtfuiO79sNw==
-
-xhr2@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/xhr2/-/xhr2-0.1.4.tgz#7f87658847716db5026323812f818cadab387a5f"
-  integrity sha1-f4dliEdxbbUCYyOBL4GMras4el8=
 
 xml-name-validator@^3.0.0:
   version "3.0.0"
